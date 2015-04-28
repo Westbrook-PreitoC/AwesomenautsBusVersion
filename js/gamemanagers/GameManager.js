@@ -1,63 +1,54 @@
-game.GameTimerManager = Object.extend(  {
-    init: function(x, y, settings){
-        this.now = new Date().getTime();
-        this.lastCreep = new Date().getTime();
-        this.pause = false;
+game.ExperienceManager = Object.extend({
+    init: function(x, y, settings) {
         this.alwaysUpdate = true;
+        this.gameOver = false;
     },
-    
-    update: function(){
-        this.now = new Date().getTime();      
-        this.goldTimerCheck();
-        this.creepTimerCheck();
-        
+    update: function() {
+        if (game.data.win === true && !this.gameOver) {
+            this.gameOver(true);
+            alert("YOU WIN!");
+        } else if (game.data.win === false && !this.gameOver) {
+            this.gameOver(false);
+            alert("YOU LOSE!");
+        }
+
         return true;
     },
-    
-    goldTimerCheck: function(){
-        if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
-             game.data.gold += game.data.exp1+1;
-             console.log("Current gold: " + game.data.gold);
-        } 
-    },
-    
-    creepTimerCheck: function(){
-        if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
-            this.lastCreep = this.now;
-            var creepe = me.pool.pull("EnemyCreep", 2200, 420, {});
-            me.game.world.addChild(creepe, 5);
-        }  
-    },
+    gameOver: function(win) {
+        if (win) {
+            game.data.exp += 10;
+        } else {
+            game.data.exp += 1;
+        }
+        this.gameOver = true;
+        me.save.exp = game.data.exp;
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "php/controller/save-user.php",
+            data: {
+                exp: game.data.exp, 
+                exp1: game.data.exp1,
+                exp2: game.data.exp2,
+                exp3: game.data.exp3,
+                exp4: game.data.exp4,
+            },
+            dataType: "text"
+        })
+                .success(function(response) {
+                    if (response === "true") {
+                        me.state.change(me.state.MENU);
+                    } else {
+                        alert(response);
+                    }
+                })
+                .fail(function(response) {
+                    alert("Fail");
+                });
+    }
+
 });
 
-
-
-game.ExperienceManager = Object.extend({
-   init: function(x, y, settings){
-       this.alwaysUpdate = true;
-       this.gameOver = false;
-   },
-   
-   update: function(){
-       if(game.data.win === true && !this.gameOver){
-           this.gameOver(true);
-       }else if(game.data.win === false && !this.gameOver){
-           this.gameOver(false);
-       }
-       
-       return true;
-   },
-   
-   gameOver: function(win){
-       if(win){
-           game.data.exp += 10; 
-       }else{
-           game.data.exp += 1;
-       }
-       console.log(game.data.exp);
-       this.gameOver = true;
-       me.save.exp =  game.data.exp;    
-   }
-    
-});
 
