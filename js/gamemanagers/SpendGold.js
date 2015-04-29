@@ -19,7 +19,7 @@ game.SpendGold = Object.extend({
             }   
         }
         
-        this.checkBuyKey();
+        this.checkBuyKeys();
         
         return true;
     },

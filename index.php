@@ -64,6 +64,8 @@
         <script type="text/javascript" src="js/screens/title.js"></script>
         <script type="text/javascript" src="js/screens/play.js"></script>
         <script type="text/javascript" src="js/screens/spendExp.js"></script>
+        <script type="text/javascript" src="js/screens/NewProfile.js"></script>
+        <script type="text/javascript" src="js/screens/LoadProfile.js"></script>
   
         <!-- /build -->
         <!-- Bootstrap & Mobile optimization tricks -->

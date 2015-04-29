@@ -108,7 +108,7 @@ game.PlayerEntity = me.Entity.extend({
     },
     
     checkAbilityKeys: function(){
-        if(me.inpuut.isKeyPressed("skill1")){
+        if(me.input.isKeyPressed("skill1")){
             //this.speedBurst();       
         }else if(me.input.isKeyPressed("skill2")){
             //this.eatCreep();
