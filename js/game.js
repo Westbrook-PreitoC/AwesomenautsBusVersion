@@ -20,7 +20,7 @@ var game = {
         playerAttackTimer: 1000,
         creepAttackTimer: 1000,
         playerMoveSpeed: 15,
-        creepMoveSpeed: 7,
+        creepMoveSpeed: 4,
         gameTimerManager: "",
         heroDeathManager: "",
         spearTimer: 15,

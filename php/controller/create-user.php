@@ -27,7 +27,7 @@
     //this is statement tells us that the users were Successfully created
     if ($query) {
          //Need this for Ajax on index.php
-         echo "Successfully created users: $username";
+         echo "true";
     } else {
          echo "<p>" . $_SESSION["connection"]->error . "</p>";
     }
