@@ -9,7 +9,7 @@ game.SpendGold = Object.extend({
     },
     update: function(){
         this.now = new Date().getTime();
-        
+        //this code tells us that you can buy
         if(me.input.isKeyPressed("buy") && this.now-this.lastBuy >=1000){
             this.lastBuy = this.now;
             if(!this.buying){
@@ -23,6 +23,7 @@ game.SpendGold = Object.extend({
         
         return true;
     },
+    //startBuying explains what buttons to press to buy  items
     startBuying: function(){
         this.buying = true;
         game.data.pausePos = me.game.viewport.localToWorld(0, 0);
@@ -40,7 +41,7 @@ game.SpendGold = Object.extend({
         me.input.bindKey(me.input.KEY.F6, "F6", true);
         this.setBuyText();
     },
-    
+    //setbuyText shows how the words and colors are put
     setBuyText: function() {
         game.data.buytext = new (me.Renderable.extend({
             init: function() {
@@ -50,7 +51,7 @@ game.SpendGold = Object.extend({
                 this.alwaysUpdate = true;
             },
             
-            
+            //draw function is showing that you made different things to buy
             draw: function(renderer) {
                 this.font.draw(renderer.getContext(), "PRESS F1-F6 TO BUY, B TO EXIT. Current Gold: " + game.data.gold, this.pos.x, this.pos.y);
                 this.font.draw(renderer.getContext(), "Skill 1: Increasing Damage. Current Level: " + game.data.skill1 + " Cost: " + ((game.data.skill1+1)*10),this.pos.x, this.pos.y + 40);
@@ -64,7 +65,7 @@ game.SpendGold = Object.extend({
         }));
       me.game.world.addChild(game.data.buytext, 35);  
     },
-    
+    //stopBuying tells us that you unbing the keys too buy after the spend screen dissapeares
     stopBuying: function(){
         this.buying = false;
         me.state.resume(me.state.PLAY);
@@ -78,7 +79,7 @@ game.SpendGold = Object.extend({
         me.input.unbindKey(me.input.KEY.F6, "F6", true);
         me.game.world.removeChild(game.data.buytext);
     },
-    
+    //in checkBuyKeys everytime you buy an item it increases by one but price increases by 10
     checkBuyKeys: function(){
         if(me.input.isKeyPressed("F1")){
             if(this.checkCost(1)){
@@ -108,7 +109,7 @@ game.SpendGold = Object.extend({
             }
         }   
     },
-    
+    //check cost makes sure you buy the item you want to buy
     checkCost: function(skill){
         console.log(skill);
         if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
@@ -127,7 +128,7 @@ game.SpendGold = Object.extend({
             return false;
         }
     },
-    
+    //makePurchase makes sure you buy  
     makePurchase: function(skill){
         if(skill === 1){
             game.data.gold -= ((game.data.skill1 +1)* 10);

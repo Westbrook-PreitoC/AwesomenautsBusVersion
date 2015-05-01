@@ -12,7 +12,7 @@ game.PlayerEntity = me.Entity.extend({
 
         this.renderable.setCurrentAnimation("idle");
     },
-    
+    //this function tells us that setSuper works for  the player and how it looks
     setSuper: function(x,y){
       this._super(me.Entity, 'init', [x, y, {
                 image: "player",
@@ -25,14 +25,14 @@ game.PlayerEntity = me.Entity.extend({
                 }
             }]);  
     },
-    
+    //setPayerTimer make shows how the player moves 
     setPlayerTimers: function(){
         this.now = new Date().getTime();
         this.lastHit = this.now;
         this.lastSpear = this.now;
         this.lastAttack = new Date().getTime();  //Haven't used this 
     },
-    
+    //set
     setAttributes: function(){
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 20);
